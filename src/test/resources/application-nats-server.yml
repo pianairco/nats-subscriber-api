@@ -1,0 +1,9 @@
+nats.router:
+  items:
+    - subject: api.create-purchase
+      handler-class: ir.piana.dev.common.handlers.CreatePurchaseHandler
+      dto-type: ir.piana.dev.common.handlers.RegisterMerchantHandler$Request
+      roles: merchant
+    - subject: api.register-merchant
+      handler-class: ir.piana.dev.common.handlers.RegisterMerchantHandler
+      dto-type: ir.piana.dev.common.handlers.RegisterMerchantHandler$Request

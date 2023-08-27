@@ -1,0 +1,47 @@
+businessCategoyCode: pspRequestShopAcceptors[0].shop.businessCategoryCode string nn $cast(number)
+businessName: pspRequestShopAcceptors[0].shop.englishName
+businessSubCategoryCode: pspRequestShopAcceptors[0].shop.businessSubCategoryCode string nn $cast(number)
+ips[0]: $string(37.32.127.132)
+merchantAdditionalDataDtos[0]:
+  accountNumber: $number(0)
+  addOrRemove: $number(1)
+  iban: legalMerchant.merchantIbans[0].merchantIban
+merchantUrl: pspRequestShopAcceptors[0].shop.websiteAddress
+pardakhtyarMerchantId: $number(4783562)
+personInforamtionDto:
+  birthCrtfctNumber: $number(320)
+  birthCrtfctSerial: $number(0)
+  birthCrtfctSeriesLetter: $string(A)
+  birthCrtfctSeriesNumber: $number(0)
+  cellPhoneNumber: legalMerchant.cellPhoneNumber
+  comNameEn: legalMerchant.comNameEn
+  comNameFa: legalMerchant.comNameFa
+  commercialCode: ''
+  countryCode: $string(IR)
+  emailAddress: pspRequestShopAcceptors[0].shop.emailAddress
+  fax: $string()
+  merchantType: $string(Legal)
+  nationalLegalCode: legalMerchant.nationalLegalCode
+  officers[0]:
+    residencyType: $string(Iranian)
+    vitalStatus: $string(Live)
+    firstNameFa: legalMerchant.merchantOfficers[0].firstNameFa
+    lastNameFa: legalMerchant.merchantOfficers[0].lastNameFa
+    fatherNameFa: legalMerchant.merchantOfficers[0].fatherNameFa
+    firstNameEn: legalMerchant.merchantOfficers[0].firstNameEn
+    lastNameEn: legalMerchant.merchantOfficers[0].lastNameEn
+    fatherNameEn: legalMerchant.merchantOfficers[0].fatherNameEn
+    birthDate: legalMerchant.merchantOfficers[0].birthDate
+    nationalCode: legalMerchant.merchantOfficers[0].nationalCode
+    gender: $string(Male)
+    merchantType: $string(Real)
+    telephoneNumber: legalMerchant.telephoneNumber
+    cellPhoneNumber: legalMerchant.cellPhoneNumber
+  passportExpireDate: $string()
+  passportNumber: $number(0)
+  registerDate: legalMerchant.registerDate
+  registerNumber: legalMerchant.registerNumber
+  residencyType: $string(Iranian)
+  telephoneNumber: legalMerchant.telephoneNumber
+  vitalStatus: $string(Live)
+  webSite: pspRequestShopAcceptors[0].shop.websiteAddress

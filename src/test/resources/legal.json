@@ -1,0 +1,66 @@
+{
+  "legalMerchant": {
+    "merchantType": "LEGAL",
+    "telephoneNumber": "021-44495245",
+    "cellPhoneNumber": "09122733730",
+    "merchantIbans": [
+      {
+        "merchantIban": "IR767676000007654350785437",
+        "description": "تست"
+      }
+    ],
+    "registerDate": "2020-09-12T06:16:00Z",
+    "registerNumber": "15746",
+    "comNameFa": "تست",
+    "comNameEn": "test",
+    "nationalLegalCode": "24889451923",
+    "merchantOfficers": [
+      {
+        "firstNameFa": "محمد",
+        "lastNameFa": "صنعتی",
+        "fatherNameFa": "احمد",
+        "firstNameEn": "Mohammad",
+        "lastNameEn": "sanati",
+        "fatherNameEn": "ahmad",
+        "birthDate": "1998-02-21T07:14:00Z",
+        "nationalCode": "7694523191",
+        "gender": "MALE"
+      }
+    ]
+  },
+  "legalRelatedMerchants": [
+    {
+      "merchantType": "LEGAL",
+      "merchantOfficers": [
+        {
+          "firstNameFa": ""
+        }
+      ],
+      "relationType": "SPLIT_MONEY"
+    }
+  ],
+  "contractNumber": "99-11-100",
+  "pspRequestShopAcceptors": [
+    {
+      "shop": {
+        "farsiName": "بلاک",
+        "englishName": "Block",
+        "telephoneNumber": "021-44456215",
+        "postalCode": "2317656476",
+        "businessCategoryCode": "7800",
+        "businessSubCategoryCode": "0001",
+        "provinceCode": "QAZ",
+        "emailAddress": "block@yahoo.com",
+        "websiteAddress": "http://www.block.com",
+        "taxPayerCode": "1629765538"
+      },
+      "acceptors": [
+        {
+          "shaparakSettlementIbans": [
+            "IR887676500676020365344500"
+          ]
+        }
+      ]
+    }
+  ]
+}

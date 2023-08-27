@@ -1,0 +1,46 @@
+{
+  "individualMerchant": {
+    "merchantType": "INDIVIDUAL",
+    "telephoneNumber": "021-22643835",
+    "cellPhoneNumber": "09129727467",
+    "merchantIbans": [
+      {
+        "merchantIban": "IR200560080980001010437001",
+        "description": "نیتا"
+      }
+    ],
+    "firstNameFa": "ستیاذ",
+    "lastNameFa": "مصیاذ",
+    "fatherNameFa": ".کیسمد",
+    "firstNameEn": "klsdjhbi",
+    "lastNameEn": "weaqpfjo",
+    "fatherNameEn": "sdkjgki",
+    "gender": "MALE",
+    "birthDate": "1967-01-11T08:00:20Z",
+    "nationalCode": "2579999487"
+  },
+  "contractNumber": "1401-02-2000",
+  "pspRequestShopAcceptors": [
+    {
+      "shop": {
+        "farsiName": "نسیشتذلت",
+        "englishName": "ksdjbhk",
+        "telephoneNumber": "021-33443835",
+        "postalCode": "1916943391",
+        "businessCategoryCode": "6051",
+        "businessSubCategoryCode": "0000",
+        "provinceCode": "THR",
+        "emailAddress": "info@sdlkn.com",
+        "websiteAddress": "http://sdlkhn.com",
+        "taxPayerCode": "254777856"
+      },
+      "acceptors": [
+        {
+          "shaparakSettlementIbans": [
+            "IR200560080980001010437001"
+          ]
+        }
+      ]
+    }
+  ]
+}

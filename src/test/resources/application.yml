@@ -1,0 +1,7 @@
+logging:
+  level:
+    root: info
+spring:
+  locale: fa
+  profiles:
+    active: config, nats-server

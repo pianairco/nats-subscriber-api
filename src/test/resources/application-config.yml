@@ -1,0 +1,12 @@
+ir.piana.dev.common:
+  vertx:
+    metrics:
+      enabled: false
+      host: ${METRIC_HOST:localhost}
+      port: ${METRIC_PORT:9001}
+      endpoint: ${METRIC_ENDPOINT:}
+    prefer-native-transport: ${PREFER_NATIVE_TRANSPORT:true}
+  reactive-core:
+    thread-pool-size: ${THREAD_POOL_SIZE:50}
+  nats:
+    server-url: nats://${MESSAGING_NATS_SERVERS}

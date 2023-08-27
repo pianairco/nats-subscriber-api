@@ -1,0 +1,36 @@
+businessCategoyCode: pspRequestShopAcceptors[0].shop.businessCategoryCode string nn $cast(number)
+businessName: pspRequestShopAcceptors[0].shop.englishName string nm
+businessSubCategoryCode: pspRequestShopAcceptors[0].shop.businessSubCategoryCode string $cast(number)
+ips[0]: $string(37.32.127.132)
+merchantAdditionalDataDtos[0]:
+  accountNumber: $number(0)
+  addOrRemove: $number(1)
+  iban: individualMerchant.merchantIbans[0].merchantIban
+merchantUrl: pspRequestShopAcceptors[0].shop.websiteAddress
+pardakhtyarMerchantId: $string(4783562)
+personInforamtionDto:
+  birthCrtfctNumber: $number(0)
+  birthCrtfctSerial: $number(0)
+  birthCrtfctSeriesLetter: $string(A)
+  birthCrtfctSeriesNumber: $number(0)
+  birthDate: individualMerchant.birthDate string $cast(toPersianDate#yyyyMMdd)
+  cellPhoneNumber: individualMerchant.cellPhoneNumber
+  fatherNameEn: individualMerchant.fatherNameEn
+  fatherNameFa: individualMerchant.fatherNameFa
+  firstNameEn: individualMerchant.firstNameEn
+  firstNameFa: individualMerchant.firstNameFa
+  lastNameEn: individualMerchant.lastNameEn
+  lastNameFa: individualMerchant.lastNameFa
+  gender: individualMerchant.gender
+  commercialCode: $null
+  countryCode: $string(IR)
+  emailAddress: pspRequestShopAcceptors[0].shop.emailAddress
+  fax: $string()
+  merchantType: $string(Real)
+  nationalCode: individualMerchant.nationalCode
+  passportExpireDate: $string()
+  passportNumber: $number(0)
+  residencyType: $string(Iranian)
+  telephoneNumber: individualMerchant.telephoneNumber
+  vitalStatus: $string(Live)
+  webSite: pspRequestShopAcceptors[0].shop.websiteAddress
