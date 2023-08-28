@@ -1,4 +1,4 @@
-ir.jibit.dev.common:
+ir.piana.dev.common:
   nats:
     server-url: nats://localhost:${MESSAGING_NATS_SERVERS}
     requestCleanupInterval: PT100S

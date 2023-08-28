@@ -21,6 +21,8 @@
 		<assertj.version>3.24.2</assertj.version>
 		<nats.version>2.16.13</nats.version>
 		<plugins.build.helper.plugin.version>3.4.0</plugins.build.helper.plugin.version>
+		<docker.maven.plugin>0.43.0</docker.maven.plugin>
+		<docker.nats.image>nats:latest</docker.nats.image>
 	</properties>
 
 	<dependencies>
@@ -75,6 +77,56 @@
 			</plugin>
 
 			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker.maven.plugin}</version>
+
+				<!-- Connect start/stop to validate and compile phase, respectively -->
+				<executions>
+					<execution>
+						<id>start-after-initialize</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>stop</goal>
+							<goal>start</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>stop-after-test</id>
+						<phase>test</phase>
+						<!--						<phase>generate-sources</phase>-->
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<images>
+						<image>
+							<alias>nats-main</alias>
+							<name>${docker.nats.image}</name>
+							<run>
+								<ports>
+									<port>nat.port:4222</port>
+									<port>nat.clustering.port:6222</port>
+									<port>nat.management.port:8222</port>
+								</ports>
+								<wait>
+									<time>2000</time>
+								</wait>
+								<log>
+									<enabled>true</enabled>
+									<prefix>NATS |</prefix>
+									<color>yellow</color>
+								</log>
+							</run>
+						</image>
+					</images>
+				</configuration>
+			</plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.1.2</version>
@@ -83,8 +135,9 @@
 						<!--<exclude>ir/piana/dev/common/DevCommonApplication.java</exclude>-->
 						<!--<exclude>**/MessageTest.java</exclude>-->
 					</excludes>
-					<!--<systemPropertyVariables>
-					</systemPropertyVariables>-->
+					<systemPropertyVariables>
+						<MESSAGING_NATS_SERVERS>${nat.port}</MESSAGING_NATS_SERVERS>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 
