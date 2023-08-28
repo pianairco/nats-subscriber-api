@@ -4,7 +4,9 @@ import io.nats.client.*;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.json.JsonObject;
 import ir.piana.dev.common.handler.*;
+import ir.piana.dev.jsonparser.json.JsonParser;
 import lombok.Setter;
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,7 +36,6 @@ public class NatsAutoConfiguration {
             return null;
         }
         natsConfig.setServer(natsConfig.serverUrl);
-
         try {
             logger.info("autoconnecting to NATS with properties - " + natsConfig);
             logger.info("nat server = " + natsConfig.serverUrl);
@@ -89,7 +90,7 @@ public class NatsAutoConfiguration {
         Map<String, Class> map = new LinkedHashMap<>();
 
         for (NatsRouteItem item : routerItems.items) {
-            if (item.dtoType != null && item.response == null) {
+            if (!Strings.isEmpty(item.dtoType) && item.response == null) {
                 map.put(item.dtoType, Class.forName(item.dtoType));
             }
         }
@@ -107,6 +108,7 @@ public class NatsAutoConfiguration {
     @Profile("nats-server")
     NatsHandlers natsHandlers(Dispatcher natsDispatcher, NatsRouter natsRouter,
                               HandlerManager handlerManager,
+                              JsonParser jsonParser,
                               @Qualifier("natsHandlerClassMap") Map<String, Class> natsHandlerClassMap,
                               @Qualifier("natsDtoClassMap") Map<String, Class> natsDtoClassMap) {
         for (NatsRouteItem item : natsRouter.items) {
@@ -124,19 +126,16 @@ public class NatsAutoConfiguration {
                         message -> {
                             try {
                                 if (item.dtoType != null && message.getData().length == 0) {
-                                    /*throw new HandlerRuntimeException(
-                                            BaseHandlerContext.fromResult(new ResultDto(new DetailedError(
-                                                    -1, "request body required",
-                                                    DetailedError.ErrorTypes.BAD_REQUEST))));*/
+                                    throw new RuntimeException("should be have body!");
                                 }
                                 /**
                                  * ToDo: body must be Object not Array
                                  */
                                 handle(item, handlerManager, natsHandlerClassMap,
                                         message,
-                                        RequestDtoBuilder.fromJson(
-                                                Buffer.buffer().appendBytes(message.getData()).toJsonObject(),
-                                                natsDtoClassMap.get(item.dtoType)).build());
+                                        HandlerRequestBuilder.fromBuffer(jsonParser, Buffer.buffer().appendBytes(message.getData()),
+                                                        natsDtoClassMap.get(item.dtoType))
+                                                .build());
                             } catch (Exception exception) {
                                 logger.error(exception.getMessage());
                                 error(message, exception);
@@ -152,10 +151,10 @@ public class NatsAutoConfiguration {
             HandlerManager handlerManager,
             Map<String, Class> handlerClassMap,
             Message message,
-            RequestDto requestDto) {
+            HandlerRequest handlerRequest) {
         try {
             DeferredResult<HandlerContext<?>> deferredResult = handlerManager.execute(
-                    handlerClassMap.get(item.handlerClass), message.getReplyTo(), requestDto);
+                    handlerClassMap.get(item.handlerClass), message.getReplyTo(), handlerRequest);
 
             deferredResult.setResultHandler(result -> {
                 HandlerContext handlerContext = (HandlerContext) result;
@@ -209,7 +208,7 @@ public class NatsAutoConfiguration {
                 return;
             }
             message.getConnection().publish(message.getReplyTo(),
-                    JsonObject.mapFrom(context.resultDto()).toBuffer().getBytes());
+                    JsonObject.mapFrom(((HandlerRuntimeException)throwable).getDetailedError()).toBuffer().getBytes());
         } else {
             message.getConnection().publish(message.getReplyTo(), JsonObject.mapFrom(
                             new DetailedError(-1, "unhandled error!", DetailedError.ErrorTypes.UNKNOWN))

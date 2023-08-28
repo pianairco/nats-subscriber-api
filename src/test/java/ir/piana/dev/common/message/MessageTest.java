@@ -3,7 +3,6 @@ package ir.piana.dev.common.message;
 import io.nats.client.Connection;
 import io.nats.client.Message;
 import io.vertx.core.buffer.Buffer;
-import ir.piana.dev.common.context.PropertyOverrideContextInitializer;
 import ir.piana.dev.jsonparser.json.JsonParser;
 import ir.piana.dev.jsonparser.json.JsonTarget;
 import org.junit.jupiter.api.Test;
@@ -14,15 +13,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
-import org.springframework.test.context.ContextConfiguration;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.concurrent.CompletableFuture;
 
-@SpringBootTest
-@ContextConfiguration(initializers = PropertyOverrideContextInitializer.class)
+@SpringBootTest()
 @Import(value = {MessageTest.TestConfig.class})
+//@ContextConfiguration(initializers = PropertyOverrideContextInitializer.class)
 public class MessageTest {
 
     @Configuration

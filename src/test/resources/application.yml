@@ -4,4 +4,4 @@ logging:
 spring:
   locale: fa
   profiles:
-    active: config, nats-server
+    active: config, nats-server, test

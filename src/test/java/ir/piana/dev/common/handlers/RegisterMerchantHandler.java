@@ -6,7 +6,6 @@ import ir.piana.dev.common.handler.HandlerContext;
 import ir.piana.dev.common.handler.ResultDto;
 import ir.piana.dev.common.participants.TransformParticipant;
 import ir.piana.dev.jsonparser.json.JsonParser;
-import ir.piana.dev.jsonparser.json.JsonTarget;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,13 +30,12 @@ public class RegisterMerchantHandler {
     @ChainStep(order = 1)
 //    @Transactional(propagation = Propagation.REQUIRED)
     public void step1(HandlerContext<Request> context) {
-        JsonTarget jsonTarget = jsonParser.fromJson(context.requestDto().getJsonObject(), true);
-        System.out.println(jsonTarget.asString("message"));
+        System.out.println(context.request().getJsonTarget().asString("message"));
     }
 
     @ChainStep(order = 2)
     public void step2(HandlerContext<Request> context) {
-        context.addResultDto(new ResultDto(new Response(1, context.requestDto().getDto().message)));
+        context.addResultDto(new ResultDto(new Response(1, context.request().getDto().message)));
     }
 
     @Getter

@@ -1,4 +1,7 @@
-ir.piana.dev.common:
+ir.jibit.dev.common:
+  nats:
+    server-url: nats://localhost:${MESSAGING_NATS_SERVERS}
+    requestCleanupInterval: PT100S
   vertx:
     metrics:
       enabled: false
@@ -8,5 +11,3 @@ ir.piana.dev.common:
     prefer-native-transport: ${PREFER_NATIVE_TRANSPORT:true}
   reactive-core:
     thread-pool-size: ${THREAD_POOL_SIZE:50}
-  nats:
-    server-url: nats://${MESSAGING_NATS_SERVERS}
