@@ -137,6 +137,7 @@
 					</excludes>
 					<systemPropertyVariables>
 						<MESSAGING_NATS_SERVERS>${nat.port}</MESSAGING_NATS_SERVERS>
+						<NATS_SERVER_PORT>${nat.port}</NATS_SERVER_PORT>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>

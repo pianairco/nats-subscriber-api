@@ -1,7 +1,4 @@
 ir.piana.dev.common:
-  nats:
-    server-url: nats://localhost:${MESSAGING_NATS_SERVERS}
-    requestCleanupInterval: PT100S
   vertx:
     metrics:
       enabled: false
@@ -11,3 +8,32 @@ ir.piana.dev.common:
     prefer-native-transport: ${PREFER_NATIVE_TRANSPORT:true}
   reactive-core:
     thread-pool-size: ${THREAD_POOL_SIZE:50}
+  test:
+    jms-server:
+      items:
+        - name: default
+          type: nats
+          server-url: nats://${NATS_SERVER_HOST:localhost}:${NATS_SERVER_PORT:4222}
+          specific-params:
+            server: nats://${NATS_SERVER_HOST:localhost}:${NATS_SERVER_PORT:4222}
+            request-cleanup-interval: PT100S
+            connection-name: default
+            utf8-support: true
+    jms-router:
+      items:
+        - server-name: default
+          routes:
+            - subject: api.test.get
+              group: api.test.get.group
+              handler-class: ir.piana.dev.common.handlers.GetHandler
+            - subject: api.test.post
+              group: api.test.post.group
+              handler-class: ir.piana.dev.common.handlers.PostHandler
+              dto-type: ir.piana.dev.common.handlers.PostHandler$Request
+            - subject: api.test.error
+              group: api.test.error.group
+              handler-class: ir.piana.dev.common.handlers.ErrorHandler
+              dto-type: ir.piana.dev.common.handlers.ErrorHandler$Request
+            - subject: api.ready
+              group: api.ready.group
+              response: '{"status": "up", "time": "12:00:00"}'

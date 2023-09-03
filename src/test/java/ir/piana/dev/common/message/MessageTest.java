@@ -5,10 +5,14 @@ import io.nats.client.Message;
 import io.vertx.core.buffer.Buffer;
 import ir.piana.dev.jsonparser.json.JsonParser;
 import ir.piana.dev.jsonparser.json.JsonTarget;
+import ir.piana.dev.yaml.bundle.YamlReloadableResourceBundleMessageSource;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -26,10 +30,18 @@ public class MessageTest {
     @Configuration
     @ComponentScan("ir.piana.dev")
     static class TestConfig {
-
+        @Bean("messageSource")
+        public MessageSource validatorMessageSource() {
+            YamlReloadableResourceBundleMessageSource messageSource
+                    = new YamlReloadableResourceBundleMessageSource();
+            messageSource.setBasename("classpath:messages/messages");
+            messageSource.setDefaultEncoding("UTF-8");
+            return messageSource;
+        }
     }
 
     @Autowired
+    @Qualifier("default")
     private Connection connection;
 
     @Autowired
@@ -48,7 +60,7 @@ public class MessageTest {
                 null, true);
 
 
-        CompletableFuture<Message> response = connection.request("api.register-merchant",
+        CompletableFuture<Message> response = connection.request("api.test.post",
                 request.getBytes(false, "utf-8"));
         response.whenComplete((message, throwable) -> {
             if (throwable == null) {
