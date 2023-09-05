@@ -2,7 +2,6 @@ package ir.piana.dev.common.handlers;
 
 import ir.piana.dev.common.handler.*;
 import ir.piana.dev.common.participants.TransformParticipant;
-import ir.piana.dev.common.util.HandlerInterStateTransporter;
 import ir.piana.dev.jsonparser.json.JsonParser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +28,8 @@ public class ErrorHandler extends BaseRequestHandler<ErrorHandler.Request> {
     @Autowired
     private HandlerResponseBuilder responseBuilder;
 
-    public ErrorHandler(ContextLoggerProvider contextLoggerProvider, HandlerRuntimeExceptionThrower thrower) {
-        super(contextLoggerProvider, thrower);
+    public ErrorHandler(ContextLoggerProvider contextLoggerProvider) {
+        super(contextLoggerProvider);
     }
 
     @ChainStep(order = 1)
@@ -60,7 +59,7 @@ public class ErrorHandler extends BaseRequestHandler<ErrorHandler.Request> {
             HandlerRequest<Request> handlerRequest,
             HandlerInterStateTransporter transporter) {
         return responseBuilder.fromDto(new Response(
-                1, handlerRequest.getDto().message));
+                1, handlerRequest.getDto().message)).build();
     }
 
     @Getter

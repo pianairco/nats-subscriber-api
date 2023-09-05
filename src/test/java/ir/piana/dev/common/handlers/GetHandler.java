@@ -1,13 +1,15 @@
 package ir.piana.dev.common.handlers;
 
 import ir.piana.dev.common.handler.*;
-import ir.piana.dev.common.util.HandlerInterStateTransporter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Handler
 public class GetHandler extends BaseRequestHandler {
-    protected GetHandler(ContextLoggerProvider contextLoggerProvider, HandlerRuntimeExceptionThrower handlerExceptionThrower) {
-        super(contextLoggerProvider, handlerExceptionThrower);
+
+    @Autowired
+    protected GetHandler(
+            ContextLoggerProvider contextLoggerProvider) {
+        super(contextLoggerProvider);
     }
 
     @ChainStep(order = 1)
@@ -23,6 +25,6 @@ public class GetHandler extends BaseRequestHandler {
     public HandlerResponse provideResponse(
             HandlerRequest handlerRequest, HandlerInterStateTransporter transporter) {
         return handlerResponseBuilder.fromDto(new PostHandler.Response(
-                1, "hello get!"));
+                1, "hello get!")).build();
     }
 }

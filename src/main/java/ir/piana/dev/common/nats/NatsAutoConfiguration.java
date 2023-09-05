@@ -225,7 +225,7 @@ public class NatsAutoConfiguration {
             Message message,
             HandlerRequest handlerRequest) {
         try {
-            DeferredResult<HandlerResponse<Object>> deferredResult = handlerManager.execute(
+            DeferredResult<HandlerResponse> deferredResult = handlerManager.execute(
                     handlerClassMap.get(item.getHandlerClass()), handlerRequest);
 
             deferredResult.setResultHandler(result -> {
