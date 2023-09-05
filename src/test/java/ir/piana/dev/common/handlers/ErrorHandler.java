@@ -42,7 +42,7 @@ public class ErrorHandler extends BaseRequestHandler<ErrorHandler.Request> {
     public void step2(HandlerRequest<Request> handlerRequest, HandlerInterStateTransporter transporter) {
         contextLogger.info("server name {}", 2);
         contextLogger.info("server name {}", 3);
-        handlerRuntimeExceptionThrower.proceed(HandlerErrorType.INVALID_ARGUMENT.generateDetailedError(
+        thrower.proceed(HandlerErrorType.INVALID_ARGUMENT.generateDetailedError(
                 "no.message", 1
         ));
     }
